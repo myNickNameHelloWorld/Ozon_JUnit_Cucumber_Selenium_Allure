@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class TestPropManager {
-    private static TestPropManager INSTANCE;
+    private static TestPropManager INSTANCE = null;
     private final Properties properties = new Properties();
 
     private TestPropManager() {
@@ -13,7 +13,7 @@ public class TestPropManager {
         loadCustomProperties();
     }
 
-    public static TestPropManager getInstance() {
+    public static TestPropManager getTestPropManager() {
         if (INSTANCE == null) {
             INSTANCE = new TestPropManager();
         }

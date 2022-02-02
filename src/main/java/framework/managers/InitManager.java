@@ -2,11 +2,10 @@ package framework.managers;
 
 import java.time.Duration;
 
-import static framework.utils.PropsConst.IMPLICITLY_WAIT;
-import static framework.utils.PropsConst.PAGE_LOAD_TIMEOUT;
+import static framework.utils.PropsConst.*;
 
 public class InitManager {
-    private static final TestPropManager props = TestPropManager.getInstance();
+    private static final TestPropManager props = TestPropManager.getTestPropManager();
 
     private static final DriverManager driverManager = DriverManager.getInstance();
 
@@ -14,6 +13,7 @@ public class InitManager {
         driverManager.getWebDriver().manage().window().maximize();
         driverManager.getWebDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Integer.parseInt(props.getProperty(PAGE_LOAD_TIMEOUT))));
         driverManager.getWebDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.parseInt(props.getProperty(IMPLICITLY_WAIT))));
+        driverManager.getWebDriver().get(TestPropManager.getTestPropManager().getProperty(BASE_URL));
     }
 
     public static void quitFramework() {

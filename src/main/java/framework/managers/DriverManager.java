@@ -13,7 +13,7 @@ import java.net.URI;
 public class DriverManager {
     private static DriverManager INSTANCE = null;
     private WebDriver webDriver;
-    TestPropManager testPropManager = TestPropManager.getInstance();
+    TestPropManager testPropManager = TestPropManager.getTestPropManager();
 
     private DriverManager() {
 

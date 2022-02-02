@@ -3,6 +3,7 @@ package framework.pages;
 import framework.product.Product;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,16 +15,13 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//aside/*")
     private List<WebElement> columnSubMenu;
 
-    @FindBy(xpath = "//input[@type='checkbox']/..")
-    private List<WebElement> allCheckbox;
-
-    @FindBy(xpath = "//div[contains(@class, 'container nh')]/div/div/div/div/div/div/div/button")
+    @FindBy(xpath = "//div[contains(@class, 'result-container')]/div/div/div/div/div/div/div/button")
     private List<WebElement> allButtonBuy;
 
     @FindBy(xpath = "//span[contains(text(), 'Магнитогорск')]")
     private WebElement jsScroll;
 
-    @FindBy(xpath = "//div[@id='stickyHeader']/div/a/span[@class='f-caption--bold u6b']")
+    @FindBy(xpath = "//div[@id='stickyHeader']/div/a/span[contains(text(), 'Корзина')]/../span[1]")
     private WebElement checkBasket;
 
     @FindBy(xpath = "//div[@value='Уцененный товар']")
@@ -32,6 +30,9 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(), 'Бренды')]/../div/span")
     private WebElement allBrands;
 
+    @FindBy(xpath = "//div[@data-widget='searchResultsFiltersActive']")
+    private WebElement activeFilter;
+
 
     public SearchPage priceTo(String nameMenu, Integer value) {
         for (WebElement element : columnSubMenu) {
@@ -39,7 +40,8 @@ public class SearchPage extends BasePage {
                 WebElement priceTo = element.findElement(By.xpath("./div[contains(text(), 'Цена')]/../div/div/div/div/p[contains(text(), 'до')]/../input"));
                 waitUntilElementToBeClickable(priceTo).click();
                 actionsActions(priceTo);
-                priceTo.sendKeys(value.toString());
+                priceTo.sendKeys(value.toString(), Keys.ENTER);
+                waitUntilVisibilityOf(activeFilter.findElement(By.xpath("./div/div/div/button/span/div/span[contains(text(), 'Цена')]")));
                 Assertions.assertEquals(value.toString(), priceTo.getAttribute("value"), "Введена некорректная цена");
                 return this;
             }
@@ -53,25 +55,22 @@ public class SearchPage extends BasePage {
         return pageManager.getSearchPage();
     }
 
-
-    public SearchPage clickCheckbox(String nameCheckbox) {
-        sleep(1500);
-//        int n = allCheckbox.size();
-//        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//input[@type='checkbox']/.."), n));
-        for (WebElement element : allCheckbox) {
-            if (element.getText().toLowerCase().contains((nameCheckbox).toLowerCase())) {
-                WebElement el1 = element.findElement(By.xpath("./div[1]"));
-                waitUntilElementToBeClickable(el1).click();
-                boolean checkFlag = wait.until(ExpectedConditions.elementToBeSelected(el1.findElement(By.xpath("./../input"))));
-                Assertions.assertTrue(checkFlag, "Дополнительное условие '" + nameCheckbox + "' не выбрано");
-                return pageManager.getSearchPage();
-            }
+    public SearchPage choiceCheckbox(String nameBox) {
+        switch (nameBox) {
+            case "Высокий рейтинг":
+            case "NFC":
+                clickCheckbox(nameBox);
+                break;
+            case "Beats":
+            case "Samsung":
+            case "Xiaomi":
+                checkboxBrand(nameBox);
+                break;
+            default:
+                Assertions.fail("Поле '" + nameBox + "' отсутствует на странице");
         }
-        // Убрал assert, чтобы при отсутвии определенного бренда продолжал добавлять нужное
-        //Assertions.fail("Дополнительное условие '" + nameCheckbox + "' отсутствует на странице");
         return pageManager.getSearchPage();
     }
-
 
     public SearchPage addProduct(int count) {
         waitUntilInvisibilityOf(forWait);

@@ -11,10 +11,10 @@ import java.util.List;
 import static framework.product.Product.getNames;
 
 public class BasketPage extends BasePage {
-    @FindBy(xpath = "//div[@class='aq5 aq6']/a/span")
+    @FindBy(xpath = "//div[contains(@id, 'Main')]/div/div/a/span")
     private List<WebElement> listProduct;
 
-    @FindBy(xpath = "//div[@class='bm8']/div[@class='b0n']/div/button")
+    @FindBy(xpath = "//span[contains(text(), 'Добавить')]/../../../../../div[3]/div/button")
     private WebElement clickCloseBanner;
 
     @FindBy(xpath = "//span[contains(text(), 'Ваша корзина')]/..")
@@ -30,16 +30,13 @@ public class BasketPage extends BasePage {
     private WebElement checkBasketAfterDelete;
 
 
-
     public BasketPage checkBucket() {
         waitUntilElementToBeClickable(clickCloseBanner).click();
-        sleep(2000);
         List<String> productNamesInCart = new ArrayList<>();
-        for (WebElement element: listProduct) {
+        for (WebElement element : listProduct) {
             productNamesInCart.add(element.getText());
         }
         Assertions.assertTrue(productNamesInCart.containsAll(getNames()));
-
         return pageManager.getBasketPage();
     }
 

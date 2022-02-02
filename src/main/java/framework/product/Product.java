@@ -26,7 +26,7 @@ public class Product {
 
     public static List<String> getNames() {
         List<String> listOfNames = new ArrayList<>();
-        for (Product product: list) {
+        for (Product product : list) {
             listOfNames.add(product.name);
         }
         return listOfNames;

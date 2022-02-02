@@ -3,18 +3,21 @@
 //import org.junit.jupiter.api.Test;
 //import tests.base.BaseTests;
 //
-//public class FirstTest extends BaseTests {
+//public class SecondTest extends BaseTests {
 //
 //
 //    @Test
-//    public void test1() {
+//    public void test2() {
 //        pageManager.getStartPage()
 //                .checkTittle()
-//                .clickSearchInput("iphone")
-//                .priceTo("Цена", 100000)
-//                .choiceCheckbox("NFC")
+//                .clickSearchInput("беспроводные наушники")
+//                .priceTo("Цена", 10000)
+//                .allBrandsClick()
+//                .choiceCheckbox("Beats")
+//                .choiceCheckbox("Xiaomi")
+//                .choiceCheckbox("Samsung")
 //                .choiceCheckbox("Высокий рейтинг")
-//                .addProduct(8)
+//                .addProduct()
 //                .clickBasket()
 //                .checkBucket()
 //                .checkValueProductInBasket()
