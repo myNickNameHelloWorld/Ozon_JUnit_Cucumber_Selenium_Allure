@@ -3,9 +3,9 @@ package framework.product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Product {
-    String name;
-    int price;
+public class Product implements Comparable<Product> {
+    private String name;
+    private int price;
 
     public static List<Product> list = new ArrayList<>();
 
@@ -30,5 +30,16 @@ public class Product {
             listOfNames.add(product.name);
         }
         return listOfNames;
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return this.getPrice() - o.getPrice();
+    }
+
+    @Override
+    public String toString() {
+        return "Название |" + name +
+                "| цена: " + price + " ₽ \n";
     }
 }

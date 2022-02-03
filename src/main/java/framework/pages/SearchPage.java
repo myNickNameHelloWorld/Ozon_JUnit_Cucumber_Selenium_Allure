@@ -41,7 +41,7 @@ public class SearchPage extends BasePage {
                 waitUntilElementToBeClickable(priceTo).click();
                 actionsActions(priceTo);
                 priceTo.sendKeys(value.toString(), Keys.ENTER);
-                waitUntilVisibilityOf(activeFilter.findElement(By.xpath("./div/div/div/button/span/div/span[contains(text(), 'Цена')]")));
+                waitUntilElementToBeClickable(activeFilter.findElement(By.xpath("./div/div/div/button/span/div/span[contains(text(), 'Цена')]")));
                 Assertions.assertEquals(value.toString(), priceTo.getAttribute("value"), "Введена некорректная цена");
                 return this;
             }

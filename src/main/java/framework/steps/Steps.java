@@ -39,7 +39,7 @@ public class Steps {
 
     @Когда("^Выбор дополнительного параметра$")
     public void choiceCheckbox(List<String> arg) {
-        for (String s: arg) {
+        for (String s : arg) {
             pageManager.getSearchPage().choiceCheckbox(s);
         }
     }
@@ -47,6 +47,11 @@ public class Steps {
     @Когда("^Добавление товара в количестве '(\\d*)' штук$")
     public void addProduct(int count) {
         pageManager.getSearchPage().addProduct(count);
+    }
+
+    @Когда("^Добавление всех товаров$")
+    public void addProduct() {
+        pageManager.getSearchPage().addProduct();
     }
 
     @Когда("^Переход в корзину$")
@@ -68,6 +73,7 @@ public class Steps {
     public void deleteAllProducts() {
         pageManager.getBasketPage().deleteAllProducts();
     }
+
     @Когда("^Проверка после удаления$")
     public void checkAfterDelete() {
         pageManager.getBasketPage().checkAfterDelete();

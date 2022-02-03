@@ -1,0 +1,9 @@
+.idea
+
+target/
+
+report.txt
+
+.allure
+*.iml
+out/
