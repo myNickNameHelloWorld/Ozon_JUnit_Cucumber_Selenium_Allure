@@ -39,7 +39,7 @@ public class SearchPage extends BasePage {
             if (element.getText().toLowerCase().contains((nameMenu.toLowerCase()))) {
                 WebElement priceTo = element.findElement(By.xpath("./div[contains(text(), 'Цена')]/../div/div/div/div/p[contains(text(), 'до')]/../input"));
                 waitUntilElementToBeClickable(priceTo).click();
-                actionsActions(priceTo);
+                actionsActions();
                 priceTo.sendKeys(value.toString(), Keys.ENTER);
                 waitUntilElementToBeClickable(activeFilter.findElement(By.xpath("./div/div/div/button/span/div/span[contains(text(), 'Цена')]")));
                 Assertions.assertEquals(value.toString(), priceTo.getAttribute("value"), "Введена некорректная цена");

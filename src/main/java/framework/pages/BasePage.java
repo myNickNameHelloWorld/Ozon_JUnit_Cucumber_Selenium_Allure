@@ -42,7 +42,7 @@ public class BasePage {
         int n = listActiveFilter.size();
         wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//div[@data-widget='searchResultsFiltersActive']/div/div/div/button/span/div/span"), n));
         waitUntilElementToBeClickable(searchBrand).click();
-        actionsActions(searchBrand);
+        actionsActions();
         searchBrand.sendKeys(nameCheckbox);
         if (brand.getText().toLowerCase().contains(("Ничего").toLowerCase())) {
             waitUntilElementToBeClickable(searchBrand).click();
@@ -93,7 +93,7 @@ public class BasePage {
         return Integer.parseInt(str);
     }
 
-    protected void actionsActions(WebElement element) {
+    protected void actionsActions() {
         Actions actions = new Actions(driverManager.getWebDriver());
         actions.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).build().perform();
     }
