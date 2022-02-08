@@ -33,6 +33,9 @@ public class SearchPage extends BasePage {
     @FindBy(xpath = "//div[@data-widget='searchResultsFiltersActive']")
     private WebElement activeFilter;
 
+    @FindBy(xpath = "//div[@data-widget='searchResultsFiltersActive']/div/div")
+    private List<WebElement> listActiveFilter;
+
 
     public SearchPage priceTo(String nameMenu, Integer value) {
         for (WebElement element : columnSubMenu) {
@@ -73,7 +76,9 @@ public class SearchPage extends BasePage {
     }
 
     public SearchPage addProduct(int count) {
-        waitUntilInvisibilityOf(forWait);
+        int el = listActiveFilter.size();
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//div[@data-widget='searchResultsFiltersActive']/div/div"), el));
+        //waitUntilInvisibilityOf(forWait);
         scrollToElementJs(jsScroll);
         waitUntilVisibilityOf(jsScroll);
         int i = 1;
@@ -95,7 +100,9 @@ public class SearchPage extends BasePage {
     }
 
     public SearchPage addProduct() {
-        waitUntilInvisibilityOf(forWait);
+        int el = listActiveFilter.size();
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//div[@data-widget='searchResultsFiltersActive']/div/div"), el));
+       // waitUntilInvisibilityOf(forWait);
         scrollToElementJs(jsScroll);
         waitUntilVisibilityOf(jsScroll);
         int i = 1;
